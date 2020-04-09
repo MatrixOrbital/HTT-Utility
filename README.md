@@ -75,5 +75,9 @@ htt_util.sln
 - Visual Studio will now open 
 - From the `Build` pulldown menu, select `Build Solution`
 
+** SUPPORT **
+
+Support Forums:https://www.lcdforums.com/forums/viewforum.php?f=46
+
 
 
