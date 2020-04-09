@@ -77,7 +77,7 @@ htt_util.sln
 
 ** SUPPORT **
 
-Support Forums:https://www.lcdforums.com/forums/viewforum.php?f=46
+**Support Forums:**  https://www.lcdforums.com/forums/viewforum.php?f=46
 
 
 
