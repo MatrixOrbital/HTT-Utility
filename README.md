@@ -4,7 +4,9 @@ A quick and easy utility to change the touch screen settings on Matrix Orbitals 
 
 We are happy to release our HTT HDMI TFT Support Utility source code for Windows and Linux!
 
-Windows compiled version
+Windows compiled version:
+
+
 https://www.matrixorbital.com/software/htt-utility
 
 
