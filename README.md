@@ -1,6 +1,6 @@
 # HTT Support utility
 
-A quick and easy utility to change the touch screen settings on Matrix Orbitals HTT range of products.
+A quick and easy utility to change the touch screen settings on Matrix Orbitals HTT HDMI TFT LCD range of products.
 
 ------------------------------------------------------------------
 
@@ -8,7 +8,7 @@ A quick and easy utility to change the touch screen settings on Matrix Orbitals 
 
 ![alt text](https://www.matrixorbital.com/image/cache/catalog/products/HTT50A-TPR_650-300x300.jpg)
 
-**Any HTT Product with a touch screen**
+**Any HTT HDMI TFT Product with a touch screen**
 
 https://www.matrixorbital.com/communication-protocol/hdmi
 
