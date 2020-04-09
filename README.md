@@ -2,6 +2,12 @@
 
 A quick and easy utility to change the touch screen settings on Matrix Orbitals HTT HDMI TFT LCD range of products.
 
+We are happy to release our HTT HDMI TFT Support Utility source code for Windows and Linux!
+
+Windows compiled version
+https://www.matrixorbital.com/software/htt-utility
+
+
 **Settings:**
 
 **Screen Rotation:** 0, 90, 180, 270
