@@ -2,6 +2,19 @@
 
 A quick and easy utility to change the touch screen settings on Matrix Orbitals HTT HDMI TFT LCD range of products.
 
+**Settings:**
+
+**Screen Rotation:** 0, 90, 180, 270
+**Touch Panel sensitivity:** Normal, High, Extra (thickness is dependent of display)
+
+These commands require PCB 2.0+ of any HTT display
+
+**Backlight Brightness:** 0-255
+**Haptic Feedback:**  Duration, ms
+**Piezo:** Duration, ms
+**Touch Feedback:** 0 none, 1 Haptic, 2 Piezo, 3 Haptic & Piezo
+**Backlight Auto Dim:** dim from last touch, seconds
+
 ------------------------------------------------------------------
 
 **Hardware Requirements:**
