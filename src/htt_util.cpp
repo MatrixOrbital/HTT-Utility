@@ -577,7 +577,7 @@ int main(int argc, char *argv[]) {
   }
 
   /* allocate ram for them */
-  g_handles = (hid_device **)malloc(sizeof(void *) * g_device_count);
+  g_handles = (hid_device **)calloc(g_device_count + 1, sizeof(void *));
 
   /* store handles for all devices*/
   iterator = device;
