@@ -282,7 +282,7 @@ void loadcalibration(hid_device *device, char *argv[], int start_index) {
     fseek(f, 0, SEEK_SET); // seek back to beginning of file
     fread(buffer, 1, 56, f);
     fclose(f);
-    if (set_calmatrix(device, buffer, sizeof(buffer))) {
+    if (set_calmatrix(device, buffer, file_size)) {
       printf("Calibration matrix written to unit\nPlease reconnect the USB "
              "cable to load the new settings.\n");
     } else {
