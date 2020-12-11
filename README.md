@@ -14,7 +14,7 @@ https://www.matrixorbital.com/software/htt-utility
 
 **Screen Rotation:** 0, 90, 180, 270
 
-**Touch Panel sensitivity:** Normal, High, Extra (thickness is dependent of display)
+**Touch Panel sensitivity:** Normal, High, Extra (thickness is dependent of display, capacitive touch only)
 
 These commands require PCB 2.0+ of any HTT display
 
