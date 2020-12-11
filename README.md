@@ -26,7 +26,7 @@ These commands require PCB 2.0+ of any HTT display
 
 **Touch Feedback:** 0 none, 1 Haptic, 2 Piezo, 3 Haptic & Piezo
 
-**Backlight Auto Dim:** dim from last touch, seconds
+**Backlight Auto Dim:** Dim from last touch, seconds, Backlight will turn on to previous value on touch
 
 ------------------------------------------------------------------
 
