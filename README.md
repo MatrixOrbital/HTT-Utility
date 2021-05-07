@@ -16,7 +16,7 @@ https://www.matrixorbital.com/software/htt-utility
     
  --scan
  
-    Scan for HTT modules and display their settings.
+    Scan for HTT modules and display their settings
 
  --device [id]
  
@@ -26,7 +26,7 @@ https://www.matrixorbital.com/software/htt-utility
  --loadcalibration [filename]
  
     Load the calibration data from a file, only available on resistive
-    touch screens.
+    touch screens
 
  --rotatetouch [degrees]
  
@@ -34,12 +34,12 @@ https://www.matrixorbital.com/software/htt-utility
     change orientation.) Normally the host OS should take care of screen
     rotation, if the host OS does not support this, this options offers
     the option to apply the rotation on the device
-    degrees can be [0, 90, 180, 270].
+    degrees can be [0, 90, 180, 270]
 
  --savecalibration [filename]
  
     Save the calibration data to a file, only available on resistive touch
-    screens.
+    screens
 
  --sensitivity [level]
  
@@ -55,14 +55,14 @@ https://www.matrixorbital.com/software/htt-utility
  --backlight [setting]
  
     set backlight brightness [0-255]
+    
+ --backlightset [setting]
+ 
+    set and save backlight brightness [0-255]
 
  --backlightfade [time in ms]
  
     set and save the response time to a backlight brightness change
-
- --backlightset [setting]
- 
-    set and save backlight brightness [0-255]
 
  --haptic [duration]
  
