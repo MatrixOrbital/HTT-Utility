@@ -1,6 +1,6 @@
 # HTT Support utility
 
-A quick and easy utility to change the touch screen settings on Matrix Orbitals HTT HDMI TFT LCD range of products.
+A quick and easy utility to change settings on Matrix Orbitals HTT HDMI TFT LCD range of products.
 
 We are happy to release our HTT HDMI TFT Support Utility source code for Windows and Linux!
 
@@ -77,32 +77,41 @@ https://www.matrixorbital.com/software/htt-utility
  --alarm [type] [duration] [flash]
  
     The alarm will continue until either one of the folowwing conditions occurs:
-             - The duration of the alarm is reached.
-             - The screen is touched (touch capable models only).
-             - The alarm is canceled by selecting alarm type 0.
-    type 0-17 alarm type [0 = off]
-    duration duration for the alarm (in 100ms increments, for 1 second - use 10), use -1 for no timeout, the alarm will continue until touch or cancelation.
+    - The duration of the alarm is reached
+    - The screen is touched (touch capable models only)
+    - The alarm is canceled by selecting alarm type 0
+    
+    type: 0-17 alarm type [0 = off], 16 preprogrammed tones
+    
+    duration: duration for the alarm (in 100ms increments, for 1 second - use 10), use -1 for no timeout
 
-    flash - flashes per second, max = 10, off = 0
+    flash: flashes per second, max = 10, off = 0
 
- --touchfeedback
+ --touchfeedback [setting]
  
-    set touch feedback: [0 none, 1 haptic, 2 piezo, 3 haptic and piezo].
+    Setting: 0 none, 1 haptic, 2 piezo, 3 haptic and piezo
 
  --touchdim [time1] [brightness1] [time2] [brightness2] [time3] [brightness3] [time4] [brightness4]
     
     dim the display after [time] seconds of inactivity up to 4 levels.
     
-    -[time1]       [0-600] time in seconds since last touch
-    -[brightness1] [0-255] brightness of the display 0 = Off, 255 is full brightness
-    -[time2]       [0-600] time in seconds since [time1]
-    -[brightness2] [0-255] brightness of the display 0 = Off, 255 is full brightness
-    -[time3]       [0-600] time in seconds since [time3]
-    -[brightness3] [0-255] brightness of the display 0 = Off, 255 is full brightness
-    -[time4]       [0-600] time in seconds since [time4]
-    -[brightness4] [0-255] brightness of the display 0 = Off, 255 is full brightness
+    [time1]       [0-600] time in seconds since last touch
+    [brightness1] [0-255] brightness of the display 0 = Off, 255 is full brightness
+    [time2]       [0-600] time in seconds since [time1]
+    [brightness2] [0-255] brightness of the display 0 = Off, 255 is full brightness
+    [time3]       [0-600] time in seconds since [time3]
+    [brightness3] [0-255] brightness of the display 0 = Off, 255 is full brightness
+    [time4]       [0-600] time in seconds since [time4]
+    [brightness4] [0-255] brightness of the display 0 = Off, 255 is full brightness
     
-   to disable feature: --touchdim 0 0 0 0 0 0 0 0
+   
+   --touchdim 5 150 30 75 60 25 0 0 
+   
+    example 3 stages, in 5 seconds brightness will be 150, 30 seconds after that 75, 60 seconds after 25
+   
+   --touchdim 0 0 0 0 0 0 0 0
+   
+    disable feature
    
    Note: while time is specified in seconds, for convenience time can be postfixed with the letter 'm' for specify minutes ie 5m would automatically convert to 300 seconds. 
     
