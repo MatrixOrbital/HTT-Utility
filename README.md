@@ -6,8 +6,11 @@ We are happy to release our HTT HDMI TFT Support Utility source code for Windows
 
 Windows compiled version:
 
-
 https://www.matrixorbital.com/software/htt-utility
+
+**Commands**
+--help Shows help and lists all commands
+--scan Scans for HTT modules and shows its settings
 
 
 **Settings:**
@@ -16,11 +19,16 @@ https://www.matrixorbital.com/software/htt-utility
 
 **Touch Panel sensitivity:** Normal, High, Extra (thickness is dependent of display, capacitive touch only)
 
-These commands require PCB 2.0+ of any HTT display
 
-**Backlight Brightness:** 0-255
+These commands require PCB 1.5+ or 3.0+ of any HTT display
 
-**Haptic Feedback:**  Duration, ms
+**Backlight Brightness:** set backlight brightness [0-255]
+
+**Backlight Brightness Default:** 0-255
+
+**Backlight Fade:** Duration, ms
+
+**Haptic Feedback:** Duration, ms
 
 **Piezo:** Duration, ms
 
@@ -45,7 +53,7 @@ This example uses [CMake](https://www.cmake.org) as the project system, availabl
 
 ***Linux***
 
-The htt utility requires the `libudev-dev` package so be sure to install that with your distributions package manager.
+The HTT Utility requires the `libudev-dev` package so be sure to install that with your distributions package manager.
 
 After downloading the code using either the green Clone or Download button on this page or cloning from the git command line. Use the following commands in the source folder to build the utility
 
@@ -60,7 +68,7 @@ make
 
 ***Pre-build binaries***
 
-Prebuild versions of the utility for windows are available on the [Matrix Orbital Support Site](https://www.matrixorbital.com/software/htt-utility).
+Prebuild version of the utility for Windows is available on the [Matrix Orbital Support Site](https://www.matrixorbital.com/software/htt-utility).
 
 ***Building from source***
 
