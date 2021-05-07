@@ -11,17 +11,25 @@ https://www.matrixorbital.com/software/htt-utility
 ----------------------------------------------------------------
 
  --help
+ 
     Show help (this message).
+    
+ --scan
+ 
+    Scan for HTT modules and display their settings.
 
  --device [id]
+ 
     Selects the target for the following commands in setups where multiple HTTs
     are connected. (0 = default)
 
  --loadcalibration [filename]
+ 
     Load the calibration data from a file, only available on resistive
     touch screens.
 
  --rotatetouch [degrees]
+ 
     Sets and saves the rotation for the touch panel (visual output will not
     change orientation.) Normally the host OS should take care of screen
     rotation, if the host OS does not support this, this options offers
@@ -29,41 +37,45 @@ https://www.matrixorbital.com/software/htt-utility
     degrees can be [0, 90, 180, 270].
 
  --savecalibration [filename]
+ 
     Save the calibration data to a file, only available on resistive touch
     screens.
 
- --scan
-    Scan for HTT modules and display their settings.
-
  --sensitivity [level]
+ 
     Sets the sensitivity of the touch panel.
-    This setting is only available on mxt and 7" gt9xx driver based modules.
     Attempting set this option to anything besides 'normal' on any other product
     will lead to undefined behavior and is not recommended.
 
-    level for mxt can be [normal,high,extra]
-    level for 7" GT9xx can be [normal,high]
+    level for MXT can be [normal,high,extra]
+    level for GT9xx can be [normal,high]
 
 **These commands require PCB 1.5+ or 3.0+ of any HTT display**
 
  --backlight [setting]
+ 
     set backlight brightness [0-255]
 
  --backlightfade [time in ms]
+ 
     set and save the response time to a backlight brightness change
 
  --backlightset [setting]
+ 
     set and save backlight brightness [0-255]
 
  --haptic [duration]
+ 
     set duration for haptic feedback (in 100ms increments)
     for 1 second - use 10
 
  --piezo [duration]
+ 
     set duration for piezo tone at 400Hz (in 100ms increments)
     for 1 second - use 10
 
  --alarm [type] [duration] [flash]
+ 
     The alarm will continue until either one of the folowwing conditions occurs:
              - The duration of the alarm is reached.
              - The screen is touched (touch capable models only).
@@ -74,26 +86,33 @@ https://www.matrixorbital.com/software/htt-utility
     flash - flashes per second, max = 10, off = 0
 
  --touchfeedback
+ 
     set touch feedback: [0 none, 1 haptic, 2 piezo, 3 haptic and piezo].
 
  --touchdim [time1] [brightness1] [time2] [brightness2] [time3] [brightness3] [time4] [brightness4]
-    dim the display after [time] seconds of inactivity.
-    [time1]       [0-600] time in seconds since last touch
-    [brightness1] [0-255] brightness of the display 0 = Off, 255 is full brightness
-    [time2]       [0-600] time in seconds since [time1]
-    [brightness2] [0-255] brightness of the display 0 = Off, 255 is full brightness
-    [time3]       [0-600] time in seconds since [time3]
-    [brightness3] [0-255] brightness of the display 0 = Off, 255 is full brightness
-    [time4]       [0-600] time in seconds since [time4]
-    [brightness4] [0-255] brightness of the display 0 = Off, 255 is full brightness
-    to disable feature: --touchdim 0 0 0 0 0 0 0 0
-    Note: while time is specified in seconds, for convenience time can be postfixed with the letter 'm' for specify minutes ie 5m would automatically convert to 300 seconds. 
+    
+    dim the display after [time] seconds of inactivity up to 4 levels.
+    
+    -[time1]       [0-600] time in seconds since last touch
+    -[brightness1] [0-255] brightness of the display 0 = Off, 255 is full brightness
+    -[time2]       [0-600] time in seconds since [time1]
+    -[brightness2] [0-255] brightness of the display 0 = Off, 255 is full brightness
+    -[time3]       [0-600] time in seconds since [time3]
+    -[brightness3] [0-255] brightness of the display 0 = Off, 255 is full brightness
+    -[time4]       [0-600] time in seconds since [time4]
+    -[brightness4] [0-255] brightness of the display 0 = Off, 255 is full brightness
+    
+   to disable feature: --touchdim 0 0 0 0 0 0 0 0
+   
+   Note: while time is specified in seconds, for convenience time can be postfixed with the letter 'm' for specify minutes ie 5m would automatically convert to 300 seconds. 
     
  --capcalibrate
-    PCAP calibrate
+ 
+    Capacitive touch calibrate
 
  --factorydefaults
-   reset the unit to factory defaults
+ 
+    reset the unit to factory defaults
    
 ------------------------------------------------------------------
 
