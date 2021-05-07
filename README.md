@@ -1,4 +1,4 @@
-# HTT Support utility
+# HTT Support Utility
 
 A quick and easy utility to change settings on Matrix Orbitals HTT HDMI TFT LCD range of products.
 
