@@ -93,7 +93,8 @@ https://www.matrixorbital.com/software/htt-utility
     PCAP calibrate
 
  --factorydefaults
-    reset the unit to factory defaults
+   reset the unit to factory defaults
+   
 ------------------------------------------------------------------
 
 **Hardware Requirements:**
