@@ -30,11 +30,9 @@ https://www.matrixorbital.com/software/htt-utility
 
  --rotatetouch [degrees]
  
-    Sets and saves the rotation for the touch panel (visual output will not
-    change orientation.) Normally the host OS should take care of screen
-    rotation, if the host OS does not support this, this options offers
-    the option to apply the rotation on the device
-    degrees can be [0, 90, 180, 270]
+    Sets and saves the rotation for the touch panel (visual output will not change orientation.) 
+    Normally the host OS should take care of screen rotation, if the host OS does not support this, 
+    this options offers the option to apply the rotation on the device degrees can be [0, 90, 180, 270]
 
  --savecalibration [filename]
  
