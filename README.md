@@ -12,7 +12,7 @@ https://www.matrixorbital.com/software/htt-utility
 
  --help
  
-    Show help (this message).
+    Show help (this message)
     
  --scan
  
@@ -41,7 +41,7 @@ https://www.matrixorbital.com/software/htt-utility
 
  --sensitivity [level]
  
-    Sets the sensitivity of the touch panel.
+    Sets the sensitivity of the touch panel
     Attempting set this option to anything besides 'normal' on any other product
     will lead to undefined behavior and is not recommended.
 
