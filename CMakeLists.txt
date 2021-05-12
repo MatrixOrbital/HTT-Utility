@@ -21,6 +21,11 @@ include_directories(hidapi/include)
 
 add_executable(htt_util ${SRC})
 
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/htt_util_factory.cpp AND NOT HTT_PUBLIC_BUILD)
+	target_compile_definitions(htt_util PRIVATE -DHTT_UTIL_WITH_FACTORY_COMMANDS)
+	target_sources(htt_util PRIVATE src/htt_util_factory.cpp)
+endif()
+
 if(MSVC)
 	target_link_libraries(htt_util setupapi)
 else()
