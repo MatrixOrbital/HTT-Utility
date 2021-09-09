@@ -153,7 +153,7 @@ make
 
 ***Pre-build binaries***
 
-Prebuild version of the utility for Windows is available on the [Matrix Orbital Support Site](https://www.matrixorbital.com/software/htt-utility).
+Prebuild version of the utility for Windows is available on the [Matrix Orbital Support Site](https://www.matrixorbital.com/software/htt-utilities).
 
 ***Building from source***
 
