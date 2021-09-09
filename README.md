@@ -6,7 +6,7 @@ We are happy to release our HTT HDMI TFT Support Utility source code for Windows
 
 Windows compiled version:
 
-https://www.matrixorbital.com/software/htt-utility
+https://www.matrixorbital.com/software/htt-utilities
 
 ----------------------------------------------------------------
 
