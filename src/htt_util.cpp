@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "hidapi.h"
 #include <stdint.h>
+#include <ctype.h>
 
 /* The factory programming commands are not exposed in the 
  * public code drop of htt_util. */
