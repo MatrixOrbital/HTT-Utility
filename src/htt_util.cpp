@@ -30,7 +30,8 @@ hid_device **g_handles = NULL;
 #define TOUCH_RESISTIVE 1
 #define TOUCH_MXTxx     2       
 #define TOUCH_GT9xx     3       
-#define TOUCH_FT5xx     4 
+#define TOUCH_FT5xx     4
+#define TOUCH_ILI25xx   5
 
 #define REPORT_DRIVER_TYPE     4
 #define REPORT_CALMATRIX       6 
@@ -48,7 +49,7 @@ hid_device **g_handles = NULL;
 #define REPORT_FACTORY_RESET   19
 #define REPORT_ALARM           20
 
-const char* TouchTypes[] = { "None", "Resistive", "MXTxx", "GT9xx", "FT5xx" };
+const char* TouchTypes[] = { "None", "Resistive", "MXTxx", "GT9xx", "FT5xx", "ILI25xx" };
 const char* Rotation[] = { "0", "90", "180", "270"};
 const char* Sensitivity[] = { "normal", "high", "extra" };
 const char* TouchFeedbackTypes[] = { "None" ,"Haptic", "Piezo", "Haptic and Piezo" ,"Invalid" };
@@ -78,7 +79,6 @@ int get_driver(hid_device *handle)
 	buf[0] = REPORT_DRIVER_TYPE;
 	int res = hid_get_feature_report(handle, buf, 2);
 	if (res < 0) {
-		return 0;
 		return 0;
 	}
 	return buf[1];
@@ -250,7 +250,7 @@ void rotate_touch(hid_device* device, char* argv[], int start_index)
 				return;
 			}
 		}
-		printf("Invalid parameter for sensitivity : %s\n", argv[start_index + 1]);
+		printf("Invalid parameter for rotation : %s\n", argv[start_index + 1]);
 	}
 }
 
@@ -271,11 +271,16 @@ void sensitivty(hid_device* device, char* argv[], int start_index)
 			if (strcmp(argv[start_index + 1], Sensitivity[i]) == 0)
 			{
 				int success = set_sensitivity(device, i);
-				printf("Setting sensitivity to %s : %s\n", Sensitivity[i], success ? "Success!\nPlease reconnect the USB cable to load the new settings.\n" : "Failed.\n");
+				printf("Setting sensitivity to %s : %s\n", Sensitivity[i], success ? "Success!\n" : "Failed.\n");
+				if (success)
+				{
+					printf("The sensitivity command reboots the unit, further commands will not executed.\n");
+					exit(0);
+				}
 				return;
 			}
 		}
-		printf("Invalid parameter for rotatetouch : %s\n", argv[start_index + 1]);
+		printf("Invalid parameter for sensitivity : %s\n", argv[start_index + 1]);
 	}
 }
 
@@ -551,7 +556,7 @@ void scan_internal(hid_device *handle, int index)
 		printf("HTT Detected.\n");
 		printf("- Device            : %d\n", index);
 		printf("- Firmware Rev      : %d\n", fwrev);
-		printf("- Driver Type       : %s\n", TouchTypes[driver]);
+		printf("- Driver Type       : %s (%d)\n", TouchTypes[driver], driver);
 		printf("- Screen Rotation   : %s degrees\n", Rotation[get_rotation(handle)]);
 		printf("- Default Backlight : %d \n", get_backlight(handle));
 		int feedback = get_touchfeedback(handle);
@@ -566,10 +571,17 @@ void scan_internal(hid_device *handle, int index)
 			int timeout[4] = { 0 } ;
 			if (get_touchdim(handle, brightness, timeout))
 			{
-				printf("- Backlight dimming \n");
-				for (int i = 0; i < 4; i++)
-				{
-					printf("\tAfter %d seconds set backlight to %d\n", timeout[i], brightness[i]);
+				if (timeout[0]) {
+					printf("- Backlight dimming \n");
+					for (int i = 0; i < 4; i++)
+					{
+						if (!timeout[i])
+							break;
+						printf("\tAfter %d seconds set backlight to %d\n", timeout[i], brightness[i]);
+					}
+				}
+				else {
+					printf("- Backlight dimming : Disabled\n");
 				}
 			}
 		}
@@ -592,9 +604,16 @@ void scan_internal(hid_device *handle, int index)
 
 void scan(hid_device *handle, char* argv[], int start_index)
 {
-	for (size_t i = 0; i < g_device_count; i++)
+	if(g_device_count) 
 	{
-		scan_internal(g_handles[i], i);
+		for (size_t i = 0; i < g_device_count; i++)
+		{
+			scan_internal(g_handles[i], i);
+		}
+	}
+	else
+	{
+		printf("No HTT detected\n");
 	}
 }
 
@@ -799,6 +818,11 @@ void factorydefaults(hid_device* device, char* argv[], int start_index)
 	{
 		int success = factory_reset(device);
 		printf("Factory Defaults: %s\n", success ? "Success!" : "Failed.");
+		if (success)
+		{
+			printf("The Factory Defaults command reboots the unit, further commands are not executed.\n");
+			exit(0);
+		}
 		return;
 	}
 }
