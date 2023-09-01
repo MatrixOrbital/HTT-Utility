@@ -18,6 +18,8 @@ https://www.matrixorbital.com/software/htt-utilities
  
     Scan for HTT modules and display their settings
 
+    Returns: Device, Firmware Rev, Driver Type, Screen Rotation, Default Backlight, Touch feedback, Backlight Face, Backlight dimming
+
  --device [id]
  
     Selects the target for the following commands in setups where multiple HTTs
