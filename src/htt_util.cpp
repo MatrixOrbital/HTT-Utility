@@ -48,6 +48,7 @@ hid_device **g_handles = NULL;
 #define REPORT_BACKLIGHT_FADE  18
 #define REPORT_FACTORY_RESET   19
 #define REPORT_ALARM           20
+#define REPORT_TOUCH_THRESHOLD 26
 
 const char* TouchTypes[] = { "None", "Resistive", "MXTxx", "GT9xx", "FT5xx", "ILI25xx" };
 const char* Rotation[] = { "0", "90", "180", "270"};
@@ -118,6 +119,31 @@ int set_rotation(hid_device *handle, int rotation)
 	}
 	return 1;
 }
+
+int set_touch_threshold(hid_device* handle, uint16_t threshold)
+{
+	unsigned char buf[256];
+	buf[0] = REPORT_TOUCH_THRESHOLD;
+	buf[1] = (threshold >> 8) & 0xff;
+	buf[2] = threshold & 0xff;
+	int res = hid_send_feature_report(handle, buf, 3);
+	if (res < 0) {
+		return 0;
+	}
+	return 1;
+}
+
+int get_touch_threshold(hid_device* handle)
+{
+	unsigned char buf[256];
+	buf[0] = REPORT_TOUCH_THRESHOLD;
+	int res = hid_get_feature_report(handle, buf, 3);
+	if (res < 0) {
+		return 0;
+	}
+	return buf[2] << 8 | buf[1];
+}
+
 
 int get_calmatrix(hid_device *handle, unsigned char*out_buffer, size_t buffersize)
 {
@@ -504,6 +530,8 @@ void help(hid_device* device, char* argv[], int start_index)
 	printf("    will lead to undefined behavior and is not recommended.\n\n");
 	printf("    level for mxt can be [normal,high,extra]\n");
 	printf("    level for 7\" GT9xx can be [normal,high]\n\n\n");
+	printf(" --threshold [level]\n");
+	printf("    Sets the sensitivity of the touch panel for resistive models.\n");
 	printf("===Following commands are for PCB Rev 1.5 or higher only====\n\n"); 
 	printf(" --backlight [setting]\n");
 	printf("    set backlight brightness [0-255]\n\n");
@@ -545,6 +573,15 @@ void help(hid_device* device, char* argv[], int start_index)
 	printf("    PCAP calibrate\n\n");
 	printf(" --factorydefaults\n");
 	printf("    reset the unit to factory defaults\n");
+#if defined(HTT_UTIL_WITH_FACTORY_COMMANDS)
+	printf(" --brownout [level]\n");
+	printf("    sets the brownout reset level\n");
+	printf("    0 = Disabled\n");
+	printf("    1 = 2.06v\n");
+	printf("    2 = 2.35v\n");
+	printf("    3 = 2.63v\n");
+#endif
+
 }
 
 void scan_internal(hid_device *handle, int index)
@@ -590,6 +627,11 @@ void scan_internal(hid_device *handle, int index)
 			int sens = get_sensitivity(handle);
 			printf("- Touch Sensitivity : %d (%s).\n", sens, Sensitivity[sens]);
 		}
+		if (fwrev > 14684)
+		{
+			int threshold = get_touch_threshold(handle);
+			printf("- Touch Threshold   : %d\n", threshold);
+		}
 		if (g_verbose && fwrev > 10656)
 		{
 			printf("- Module ID         : %d\n", get_moduleID(handle));
@@ -598,7 +640,58 @@ void scan_internal(hid_device *handle, int index)
 			printf("- Custom ID         : %4x\n", customID);
 #endif
 		}
+		if (g_verbose && fwrev > 12635)
+		{
+#ifdef HTT_UTIL_WITH_FACTORY_COMMANDS
+			uint32_t PCB_Rev = get_pcbRevision(handle);
+			printf("- PCB Revision      : %d.%d.%d\n", 
+				(PCB_Rev >> 16) & 0xff, 
+				(PCB_Rev >> 8) & 0xff, 
+				(PCB_Rev >> 0) & 0xff
+			);
+#endif
+		}
+		if (g_verbose && fwrev > 13865)
+		{
+#ifdef HTT_UTIL_WITH_FACTORY_COMMANDS
+			uint32_t period = get_BacklightPeriod(handle);
+			printf("- Backlight Period  : %d (%d Hz)\n", 
+				period, (int) (48e6 / period)
+			);
+#endif
+		}
+		if (g_verbose && fwrev > 14022) 
+		{
+#ifdef HTT_UTIL_WITH_FACTORY_COMMANDS
+			uint32_t brownout = get_Brownout(handle);
+			char *brown_str = "Unknown";
+			switch (brownout)
+			{
+			case 0:
+				brown_str = "Disabled";
+				break;
+			case 1:
+				brown_str = "2.06v";
+				break;
+			case 2:
+				brown_str = "2.35v";
+				break;
+			case 3:
+				brown_str = "2.63v";
+				break;
+			}
+			printf("- Brownout Reset    : %d (%s)\n", brownout, brown_str);
+#endif
+		}
+
+
+#if defined(HTT_UTIL_WITH_FACTORY_COMMANDS)
+		if (driver == TOUCH_GT9xx && fwrev > 12103)
+		{
+			dump911(handle);
+		}
 		printf("\n");
+#endif
 	}
 }
 
@@ -634,6 +727,21 @@ void do_brightness(hid_device* device, char* argv[], int start_index, int save)
 			brightness = 0;
 		int success = set_backlight(device, brightness, save);
 		printf("Setting brightness to %d : %s\n", brightness, success ? "Success!" : "Failed.");
+		return;
+	}
+}
+
+void do_touch_threshold(hid_device* device, char* argv[], int start_index)
+{
+	if (checkhtt(device))
+	{
+		int threshold = atoi(argv[start_index + 1]);
+		if (threshold > 65535)
+			threshold = 65535;
+		if (threshold < 0)
+			threshold = 0;
+		int success = set_touch_threshold(device, threshold);
+		printf("Setting touch threshold to %d : %s\n", threshold, success ? "Success!" : "Failed.");
 		return;
 	}
 }
@@ -837,6 +945,11 @@ cli_parm handlers[] =
 	{ "--factory",  1, factory },
 	{ "--customid", 2, customid },
 	{ "--moduleid",	2, moduleid	},
+	{ "--g911_write",	2, write_g911	},
+	{ "--pcbrev",	2, pcbrev },
+	{ "--backlight_period",	2, backlight_period},
+	{ "--wipe", 1, wipe},
+	{ "--brownout", 2, brownout},
 	#endif
 	{ "--rotatetouch", 2, rotate_touch },
 	{ "--sensitivity", 2, sensitivty },
@@ -851,6 +964,7 @@ cli_parm handlers[] =
 	{ "--piezo", 2,	piezoduration},
 	{ "--touchfeedback", 2, touchfeedback},
 	{ "--touchdim", 9, touchdim},
+    { "--threshold", 2, do_touch_threshold},
 	{ "--capcalibrate", 1, pcapcalibrate},
 	{ "--factorydefaults", 1, factorydefaults},
 	{ "--alarm", 4, alarm}
